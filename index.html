@@ -13,9 +13,6 @@
   var ws = new WebSocket("ws://localhost:8000");
   ws.onmessage = function(msg){ data = JSON.parse(msg.data); d3.select('ul').append('li').text(data.text);
   }
-
-  // ws.onmessage = function (msg) {click = JSON.parse(msg.data); d3.select("ul").append("li",:
-  //   "first-child").text(click.u); }
 </script>
 
 <body>
