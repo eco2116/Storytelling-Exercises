@@ -16,7 +16,7 @@ consumer_secret = "yUxhzsWXn1TSCzkIEeUIHQKCZyI7PabLaNeFSDLwC2voGg9irV"
 
 auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
 stream = TwitterStream(auth=auth)
-it = stream.statuses.filter(track='test')
+it = stream.statuses.filter(track='water')
 
 for t in it:
 	print json.dumps(t)
