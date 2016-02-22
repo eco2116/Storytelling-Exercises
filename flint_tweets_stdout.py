@@ -35,5 +35,3 @@ for t in it:
 	print "Tweet time: " + data['created_at'] + "\n"
 	count += 1
 	sleep(2)
-
-

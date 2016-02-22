@@ -3,7 +3,7 @@
 # eco2116
 # Storytelling & Streaming Data
 # Homework 1
-# flint_tweets.py
+# flint_tweets_webpage.py
 ####################################################
 
 import json
