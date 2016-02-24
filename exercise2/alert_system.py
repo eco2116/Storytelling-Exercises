@@ -31,7 +31,7 @@ while 1:
 		print json.dumps({"status": "Alert! Negative rate: " + str(rate)})
 		sys.stdout.flush() # flush status to stdout to be read by twitter_bot.py
 
-	# Alert the user if the rate is unusually high - above 3 is a good gauge for this as it is relatively
+	# Alert the user if the rate is unusually high - above 1 is a good gauge for this as it is relatively
 	# unusual, but not impossible. The user may want to be notified of such a high rate.
 	if rate > 1:
 		print json.dumps({"status": "Alert! Rate is very high: " + str(rate)})
@@ -47,7 +47,8 @@ while 1:
 	# This is not the first rate measurement, so we can calculate a difference and alert the user
 	# if the rate has made an unusually large jump either upwards or downwards.
 	diff = last - rate
-	# print " diff" + str(diff)
+	
+	# If moving average grows or drops by more than .01, this is unusual. Alert the user.
 	if diff > .01 or diff < -.01:
 		print json.dumps({"status": "Alert! Very large rate change: " + str(rate)})
 		sys.stdout.flush() # flush status to stdout to be read by twitter_bot.py
