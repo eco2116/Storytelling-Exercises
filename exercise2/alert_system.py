@@ -14,7 +14,9 @@
 import sys # Used for reading in from stdin
 import json # Used for decoding JSON data
 
-## Continue reading forever
+last = 0 # Used for checking if we only have one piece of data and cannot calculate a difference
+
+# Continue reading forever
 while 1:
 
 	# Read a line from std in and decode it into JSON format using python's JSON library
@@ -26,17 +28,18 @@ while 1:
 
 	# Alert the user if the rate is negative - this doesn't make sense. Something is fishy.
 	if rate < 0:
-		print "Alert! Negative rate: " + str(rate)
+		print json.dumps({"status": "Alert! Negative rate: " + str(rate)})
+		sys.stdout.flush() # flush status to stdout to be read by twitter_bot.py
 
 	# Alert the user if the rate is unusually high - above 3 is a good gauge for this as it is relatively
 	# unusual, but not impossible. The user may want to be notified of such a high rate.
-	else if rate > 3:
-		print "Alert! Rate is very high: " + str(rate)
+	if rate > 1:
+		print json.dumps({"status": "Alert! Rate is very high: " + str(rate)})
+		sys.stdout.flush() # flush status to stdout to be read by twitter_bot.py
 
 	# Now, we are going to see if the rate is making sudden jumps between successive measurements
 	# First we check to see if we are examining the first record, in which case we need to skip to find
 	# another record to examine to find the change in rate.
-	last = 0
 	if last == 0:
 		last = rate
 		continue
@@ -44,6 +47,9 @@ while 1:
 	# This is not the first rate measurement, so we can calculate a difference and alert the user
 	# if the rate has made an unusually large jump either upwards or downwards.
 	diff = last - rate
-	if diff > .3 || diff < -.3:
-		print "Alert! Very large rate change: " + str(rate)
+	# print " diff" + str(diff)
+	if diff > .01 or diff < -.01:
+		print json.dumps({"status": "Alert! Very large rate change: " + str(rate)})
+		sys.stdout.flush() # flush status to stdout to be read by twitter_bot.py
 
+	last = rate
