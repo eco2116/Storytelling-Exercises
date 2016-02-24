@@ -21,7 +21,7 @@ while 1:
 	d = json.loads(line)
 	rate = d['rate']
 	print rate
-	if rate > 1:
+	if rate > 0:
 		print "posted a tweet!"
 		api.update_status("Alert: rate is " + str(rate))
 		time.sleep(900)
