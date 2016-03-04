@@ -13,12 +13,13 @@
 
 import sys # Used for reading in from stdin
 import json # Used for decoding JSON data
+from time import sleep
 
 last = 0 # Used for checking if we only have one piece of data and cannot calculate a difference
 
 # Continue reading forever
 while 1:
-
+	sleep(1)
 	# Read a line from std in and decode it into JSON format using python's JSON library
 	line = sys.stdin.readline()
 	d = json.loads(line)
