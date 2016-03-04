@@ -1,10 +1,17 @@
 #########################################
-# Evan O'Connor							#
-# eco2116							    #
-# Storytelling and Streaming Data       #
-# exercise 2						    #
-# twitter_bot.py                        #
+# Evan O'Connor	
+# eco2116
+# Storytelling and Streaming Data  
+# exercise 2
+# twitter_bot.py 
 #########################################
+
+# This script reads in JSON data outputted from alert_system.py, reading in
+# various alert messages when rates exceed normal values or experience unusually
+# large changes. The script then opens an OAuth connection and uses
+# Python's tweepy library to post tweets to my test Twitter account with
+# the alert status read in. The script sleeps 30 seconds after each tweet
+# so as not to risk exceeding Twitter's rate limit.
 
 # Source used for Twitter bot:
 # http://www.dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/
