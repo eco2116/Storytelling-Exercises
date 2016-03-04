@@ -1,5 +1,7 @@
 # Storytelling-Exercises
 
+See code comments for file descriptions and implementation details.
+
 **Steps to run:**
 
 1. Ensure proper python dependencies are installed (redis, requests, tweepy).
