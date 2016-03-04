@@ -10,7 +10,7 @@
 </head>
 
 <script>
-  var ws = new WebSocket("ws://localhost:8000");
+  var ws = new WebSocket("ws://localhost:8001");
   ws.onmessage = function(msg){ data = JSON.parse(msg.data); d3.select('ul').append('li').text(data.text);
   }
 </script>
