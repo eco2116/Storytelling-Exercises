@@ -1,9 +1,9 @@
 #########################################
-# Evan O'Connor							#
-# eco2116							    #
-# Storytelling and Streaming Data       #
-# exercise 2						    #
-# process_data.py                       #
+# Evan O'Connor
+# eco2116
+# Storytelling and Streaming Data
+# exercise 2
+# process_data.py
 #########################################
 
 # This script requests the data feed from usa.gov which sends data representing instances when
