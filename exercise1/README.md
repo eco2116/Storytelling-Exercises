@@ -14,7 +14,7 @@
 
 **Port**
 
-* Port 8000 must be used here because it is hardcoded into the `index.html` file. Hopefully in a later implementation, I can allow the user to choose their own port.
+* Port 8001 must be used here because it is hardcoded into the `index.html` file. Hopefully in a later implementation, I can allow the user to choose their own port.
 
 **Encoding**
 
@@ -37,7 +37,7 @@
 
 **How to run**
 
-1. In one terminal window execute `python -m SimpleHTTPServer 8000`
-2. Then, in another window execute `websocketd --port 8000 python flint_tweets_webpage.py`
-3. Navigate in Chrome to `http://0.0.0.0:8000/`
+1. In one terminal window execute `python -m SimpleHTTPServer 8001`
+2. Then, in another window execute `websocketd --port 8001 python flint_tweets_webpage.py`
+3. Navigate in Chrome to `http://0.0.0.0:8001/`
 4. Tweet text will show up periodically in the browser.
