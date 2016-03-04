@@ -1,9 +1,9 @@
 #########################################
-# Evan O'Connor							#
-# eco2116							    #
-# Storytelling and Streaming Data       #
-# exercise 2						    #
-# alert_system.py                       #
+# Evan O'Connor		
+# eco2116				
+# Storytelling and Streaming Data    
+# exercise 2	
+# alert_system.py       
 #########################################
 
 # This script reads in the average rate that Government URLS are shortened using Bitly
