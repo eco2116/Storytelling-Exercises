@@ -1,9 +1,9 @@
 #########################################
-# Evan O'Connor							#
-# eco2116							    #
-# Storytelling and Streaming Data       #
-# exercise 2						    #
-# avg.py                      	        #
+# Evan O'Connor		
+# eco2116	
+# Storytelling and Streaming Data  
+# exercise 2	
+# avg.py   
 #########################################
 
 # This script connects to redis and reads in the total number of time difference
