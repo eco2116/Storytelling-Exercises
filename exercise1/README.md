@@ -38,6 +38,6 @@
 **How to run**
 
 1. In one terminal window execute `python -m SimpleHTTPServer 8001`
-2. Then, in another window execute `websocketd --port 8001 python flint_tweets_webpage.py`
+2. Then, in another window execute from inside the ```excercise1``` directory `websocketd --port 8001 python flint_tweets_webpage.py`
 3. Navigate in Chrome to `http://0.0.0.0:8001/`
 4. Tweet text will show up periodically in the browser.
