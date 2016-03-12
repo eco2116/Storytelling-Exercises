@@ -28,11 +28,12 @@ while 1:
         # then let's just ditch it
         continue
 
+    # conn.hincrby(lang, time, 1)
     if time == "morning":
+        #conn.hincrby(lang, time, 1)
         conn.incr(lang, 1)
     elif time == "night":
         conn.decr(lang, 1)
-    #conn.hincrby(lang, time, 1)
 
     print json.dumps({"lang": lang, "time": time})
     sys.stdout.flush()

@@ -12,20 +12,42 @@ def buildHistogram():
     keys = conn.keys()
     values = conn.mget(keys)
     c = collections.Counter(values)
-    z = sum(c.values())
+    z = sum(float(v) for v in values)
+    print z
     print keys
     print values
-    return {k:v/float(z) for k,v in c.items()}
+    return {k : float(v)/float(z) for k,v in zip(keys, values)}
+    #return {k:v/float(z) for k,v in c.items()}
 
-@app.route("/")
+@app.route("/distribution")
 def histogram():
     h = buildHistogram()
     return json.dumps(h)
 
+@app.route("/rate")
+def rate():
+    keys = conn.keys()
+    values = conn.mget(keys)
+    c = collections.Counter(values)
+    z = sum(float(v) for v in values)
+    return json.dumps(z)
+
 @app.route("/entropy")
 def entropy():
-    h = buildHistogram()
-    return -sum([p*np.log(p) for p in h.values()]) 
+    keys = conn.keys()
+    values = conn.mget(keys)
+    c = collections.Counter(values)
+    z = sum(float(v) for v in values)
+    
+    total = 0
+    for k,v in zip(keys, values):
+      val = float(v)/float(z)
+      x = np.log(abs(val))
+      y = x * val
+      print y
+      total -= y
+    return json.dumps(total)
+    #return -sum([ p * np.log(p) for p in vals])
 
 @app.route("/probability")
 def probability():
@@ -50,10 +72,6 @@ def probability():
       "prob": float(c)/z,
       "referrer": ref
       })
-
-    
-
-
 
 if __name__ == "__main__":
     app.debug = True
