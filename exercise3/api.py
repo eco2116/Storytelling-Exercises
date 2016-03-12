@@ -44,34 +44,23 @@ def entropy():
       val = float(v)/float(z)
       x = np.log(abs(val))
       y = x * val
-      print y
       total -= y
     return json.dumps(total)
-    #return -sum([ p * np.log(p) for p in vals])
 
 @app.route("/probability")
 def probability():
-    city = request.args.get('city', '')
-    ref = request.args.get('referrer', '')
-    # get the distribution for the city
-    print city
-    d = conn.hgetall(city)
-    # get the count for the referrer
-    try:
-      c = d[ref]
-    except KeyError:
-      return json.dumps({
-        "city": city, 
-        "prob": 0,
-        "referrer": ref
-      })
-    # get the normalising constant
-    z = sum([float(v) for v in d.values()])
-    return json.dumps({
-      "city": city, 
-      "prob": float(c)/z,
-      "referrer": ref
-      })
+    lang = request.args.get('lang', '')
+    h = buildHistogram()
+    prob = h[lang]
+    if prob > 0:
+      print "Day: " + str(prob)
+      return json.dumps({"day":prob})
+    else:
+      print "Night: " + str(prob)
+      return json.dumps({"night":abs(prob)})
+
+
+
 
 if __name__ == "__main__":
     app.debug = True
