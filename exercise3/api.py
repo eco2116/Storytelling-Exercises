@@ -4,9 +4,12 @@ import redis
 import collections
 import json
 import numpy as np
+from flask.ext.cors import CORS, cross_origin
 
+#pip install -U flask-cors
 app = flask.Flask(__name__)
 conn = redis.Redis()
+CORS(app)
 
 def buildHistogram():
     keys = conn.keys()
@@ -17,9 +20,9 @@ def buildHistogram():
     print keys
     print values
     return {k : float(v)/float(z) for k,v in zip(keys, values)}
-    #return {k:v/float(z) for k,v in c.items()}
 
 @app.route("/distribution")
+@cross_origin()
 def histogram():
     h = buildHistogram()
     return json.dumps(h)
