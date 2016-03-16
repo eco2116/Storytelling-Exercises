@@ -2,23 +2,23 @@
 # Evan O'Connor	
 # eco2116
 # Storytelling and Streaming Data  
-# exercise 2
+# exercise 3
 # twitter_bot.py 
 #########################################
 
-# This script reads in JSON data outputted from alert_system.py, reading in
-# various alert messages when rates exceed normal values or experience unusually
-# large changes. The script then opens an OAuth connection and uses
-# Python's tweepy library to post tweets to my test Twitter account with
-# the alert status read in. The script sleeps 30 seconds after each tweet
-# so as not to risk exceeding Twitter's rate limit.
+# This script takes in a language as a command line argument. It then
+# connects to redis, assuming that the morning/night scripts and the
+# count scripts have been run (see README for use). It then tracks
+# the entropy of the system and the probability of receiving a good morning
+# or goodnight tweet for the specified language. It will send a tweet
+# to my account of any of these values are unusually high.
 
 # Source used for Twitter bot:
 # http://www.dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/
 
 import tweepy # Used to post to twitter
 import sys # Used to read in from stdin (specifically, alerted averages from alert_system.py)
-import time # Used to sleep for 900 seconds between postings - Don't want to get rate limited by Twitter
+import time # Used to sleep for 30 seconds between postings - Don't want to get rate limited by Twitter
 import json # Used to decode JSON data
 import redis
 import collections
@@ -42,6 +42,7 @@ api = tweepy.API(auth)
 
 conn = redis.Redis()
 
+# Create histogram according to Mike Dewar's process
 def buildHistogram():
     keys = conn.keys()
     values = conn.mget(keys)
@@ -52,6 +53,9 @@ def buildHistogram():
     print values
     return {k : float(v)/float(z) for k,v in zip(keys, values)}
 
+# Entropy calculation following Mike Dewar's description. A high entropy
+# value would indicate to us that rapid change is occuring in our
+# rate tracking for this stream.
 def entropy():
     keys = conn.keys()
     values = conn.mget(keys)
@@ -66,6 +70,9 @@ def entropy():
       total -= y
     return json.dumps(total)
 
+# Returns the probability that a given good morning or good night tweet
+# will appear given the current distribution. The probability function
+# must take in a language for which it will perform the probability calculation on.
 def probability(lang):
     h = buildHistogram()
     prob = h[lang]
@@ -76,17 +83,22 @@ def probability(lang):
       print "Night: " + str(prob)
       return json.dumps({"night":abs(prob)})
 
+# First argument (required) to this function is the language to get the probability
+# of receiving a good morning/night tweet at that moment for.
 lang = sys.argv[1]
 
 # Continue forever
 while 1:
 
+  # Alert user if entropy is unusually high
 	entr = entropy()
 	print entr
 	if float(entr) >= .8:
 		print "Posted a tweet"
 		api.update_status("Entropy is very high!")
 	
+  # Alert user if the probability is high either for a good morning or a 
+  # good night tweet for the language provided
 	prob = probability(lang)
 	d = json.loads(prob)
 	if 'day' in d:
