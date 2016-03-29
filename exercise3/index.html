@@ -8,16 +8,16 @@
   $.ajax({
         url:'http://127.0.0.1:5000/distribution',
         success: function(data) {
-          alert(data)
+          document.write(data);
         },
         error: function() {
            console.log("Failed to get distribution");
         }
       });
 </script>
-
+<!-- 
 <body>
     <ul></ul>
-</body>
+</body> -->
 
 </html> 
