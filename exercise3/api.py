@@ -16,7 +16,10 @@
 # have a language. Also, of course, we are tracking an english phrase, so the majority
 # of the responses will be for 'en' language. This is expected. No matter, it is still
 # an interesting application and quite a few other-language tweets are still being 
-# tracked. The entropy calculation, based on Mike Dewar's implementation in class,
+# tracked. The rate calculation just evenly weights the counts for different
+# languages and sums them to find an overall rate of the stream. This gives us a general
+# idea of the number of Twitter users tweeting good morning vs. good night
+# regardless of language. The entropy calculation, based on Mike Dewar's implementation in class,
 # which uses the idea that the differential entropy can be approximated by producing
 # a histogram of observations and finding the discrete entropy of that histogram. In
 # this case, the discrete observations are good morning or good night tweets.
