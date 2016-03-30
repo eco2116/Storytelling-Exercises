@@ -105,12 +105,12 @@ while 1:
 		p = d['day']
 		if float(p) >= .8:
 			print "Posted a tweet"
-			api.update_status("Probability is very high for day with language: " + lang)
+			api.update_status("Probability is very high for day with language: " + lang + ": " + str(p))
 	elif 'night' in d:
 		p = d['night']
 		if float(p) >= .8:
 			print "Posted a tweet"
-			api.update_status("Probability is very high for night with language: " + lang)
+			api.update_status("Probability is very high for night with language: " + lang + ": " + str(p))
 
 	# Sleep for 30 seconds - don't want to get rate limited by Twitter
 	time.sleep(30)
